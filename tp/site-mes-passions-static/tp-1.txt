@@ -1,0 +1,27 @@
+﻿TP1
+Initiation PHP / MySQL
+
+Exercice 1
+Créer un fichier php nommé bonjour.php
+Donnez une structure HTML à ce fichier et afficher à l'écran la chaine « bonjour » à l'aide du langage PHP.
+
+Exercice 2
+Modifier votre fichier bonjour.php afin qu'il puisse gérer les querystring.
+L'idée est d'afficher à l'écran « Bonjour $prenom ». $prenom sera remplacé par le prénom saisi en paramètre dans l'url.
+
+Exercice 3
+Ecrire un programme qui examine si la querystring  de l’url contient un champ « max ». 
+Si cechamp est absent il afﬁche un message disant « vous n’avez pas saisi de nombre » sinon il crée une liste ordonnee ( ´ ol) listant les nombres de 1 a max. 
+Par exemple, le paramètre max est égal à 5, j'affiche la liste suivante :
+1.
+2.
+3.
+4.
+5.
+
+Exercice 4
+Ecrire un formulaire HTML qui demande d’entrer son nom, son mail, et ses passions (choix mul-
+tiple parmi sport,cuisine, musique, lecture,cinema). 
+Ecrire un programme de traitement du formulaire qui vériﬁe que chaque champs est renseigné. Si c’est le cas un récapitulatif est afﬁché sinon on redirige la page du formulaire (voir ` header (’Location: monURL’)) en rajoutant un messaged’erreur expliquant ce qui manque
+
+
