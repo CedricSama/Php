@@ -51,3 +51,36 @@ function addUser($datas){
     $result = mysqli_query($db, $sql) or die($sql.'=>'.mysqli_error($db));
     return $result;
 }
+/**
+ * Identifier un user  login ou mail avec un mots de passe
+ * @param $login
+ * @param $password
+ * @param string $type (login, email)
+ * @param bool $count
+ * @return bool|int|mysqli_result
+ */
+function login($login, $password, $type = 'login', $count = true){
+    global $db;
+    $login = clearDataSql($login);
+    $password = clearDataSql($password);
+    $sql = "SELECT * FROM user WHERE $type = $login AND password = $password";
+    $result = mysqli_query($db, $sql) or die($sql.'=>'.mysqli_error($db));
+    if($count) {
+        $result = mysqli_num_rows($result);
+    }
+    return $result;
+}
+/**
+ * Trouve tout les Users de la DB
+ * @param bool $count
+ * @return bool|int|mysqli_result
+ */
+function findAllUser($count = false){
+    global $db;
+    $sql = "SELECT * FROM user";
+    $result = mysqli_query($db, $sql) or die($sql.'=>'.mysqli_error($db));
+    if($count){
+        $result = mysqli_num_rows($result);
+    }
+    return $result;
+}

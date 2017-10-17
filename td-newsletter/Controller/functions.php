@@ -13,9 +13,9 @@ function insertDatasForm($datasForm, $keys){
         }
     }
     foreach($datasForm as $key => $value){
-        if(!$value){
+        if(empty($value)){
             $datas[$key] = null;
-        }elseif($key === 'password'){
+        }elseif($key == 'password'){
             $datas[$key] = sha1(trim($value));
         }else{
             $datas[$key] = trim(htmlentities($value));
@@ -39,13 +39,13 @@ function getFlash(){
         session_start();
     }
     if(isset($_SESSION['flash'])){
-        $hmtl = '<div class="alert alert-'.$_SESSION['flash']['type'].'" role="alert" style="margin-bottom:40px">';
+        $html = '<div class="alert alert-'.$_SESSION['flash']['type'].'" role="alert" style="margin-bottom:40px">';
         foreach($_SESSION['flash']['messages'] as $message){
-            $hmtl .= '<p style="margin: 10px 0">'.$message.'</p>';
+            $html .= '<p style="margin: 10px 0">'.$message.'</p>';
         }
-        $hmtl .= '</div>';
+        $html .= '</div>';
         unset($_SESSION['flash']);
-        return $hmtl;
+        return $html;
     }
     return false;
 }
@@ -72,27 +72,167 @@ function emailValidator($email){
     }
     return $is_valid;
 }
-function upload($file){
+/**
+ * Recuperation d'avatar avec son controle
+ * @param $file
+ * @param array $validators
+ * @return array
+ */
+function upload($file, $validators){
     $error = false;
     $messages = [];
-    $extentions = ['jpg', 'jpeg', 'png', 'gif'];
-    $extention = explode('.', $file['avatar']['name']);
-    $extention = end($extention);
-    if($_FILES['avatar']['error'] != 0){
+    // Verif du code de réponse de $_FILES == 0
+    if($file[$validators['file_name']]['error'] != 0){
         $error = true;
-        $messages[] = "Une erreur s'est produite";
+        $messages[] = "une erreur s'est produite";
     }
-    if(in_array($extention, $extentions) != true){
+    // Vérif des extensions de fichier autorisées
+    $extensions = $validators['extensions'];
+    $extension = explode('.', $file[$validators['file_name']]['name']);
+    //print_r($extension);
+    // toto.titi.titi.jpg
+    $extension = end($extension);
+    if(in_array($extension, $extensions) == false){
         $error = true;
-        $messages[] = "L'extention $extention n'est pas autorisée";
+        $messages[] = "L'extension $extension n'est pas autorisée";
     }
-    print_r($messages);
-    die();
-    // Vérif code reponse $_FILES
-    // Vérif des extentions de fichiers autorisées
-    // Vérif du poids du fichier < max 2Mo
-    // Donner un nom unique au fichier avant de le telecharger
-    // (option : alerter si un fichier existe deja
-    // si tout est ok : deplacement du fichier de la memoire temporaire vers repertoire final upload
-    // Return tableau avec les divers infos concernant le preocessus d'upload
+    // Vérif du poids du fichier > max 2Mo
+    if($file[$validators['file_name']]['size'] > $validators['size']){
+//    if($file['avatar']['size'] > 500000) {
+        $error = true;
+        $messages[] = "Votre fichier doit être inférieur ou égal à 2Mo";
+    }
+    // Donner un nom unique au fichier avant de le télécharger
+    $fileNameUnique = sha1(uniqid()).'.'.$extension;
+    $fileNameUniquePath = '../'.$validators['dir'].'/'.$fileNameUnique;
+    // Test > vérifier si le dossier uploads existe déjà, si non le créer
+    if(is_dir('../'.$validators['dir']) == false){
+        mkdir('../'.$validators['dir'].'/', 777);
+    }
+    // Si tout est ok : déplacement du fichier de la mémoire temporaire vers repertoire final upload
+    if($error == false){
+        move_uploaded_file($file[$validators['file_name']]['tmp_name'], $fileNameUniquePath);
+    }
+    // (option: alerter si un fichier avec ce nom existe déjà)
+    // Return tableau avec les diverses infos concernant le processus d'upload
+    $info_upload = [
+        'file_name'=> $fileNameUnique,
+        'file_name_path'=> $fileNameUniquePath,
+        'message' => $messages,
+        'error' => $error
+    ];
+    return $info_upload;
 }
+///**
+// * Recuperation d'avatar avec son controle, encodage, criptage & path
+// * @param $file
+// * @param array $extentions default =['jpg', 'jpeg', 'png', 'gif']
+// * @param number $size default = 2000000
+// * @param string $encode default = sha1(uniqid()).'.'
+// * @param string $path default = '../upload/'
+// * @return array
+// */
+//function upload($file, $extentions = null, $size = null, $encode = null, $path = null){
+//    $error = false;
+//    $messages = [];
+//    if($extentions == null){
+//        $extentions = ['jpg', 'jpeg', 'png', 'gif'];
+//    }
+//    if($size == null){
+//        $size = 2000000;
+//    }
+//    if($encode == null){
+//        $encode = sha1(uniqid()).'.';
+//    }
+//    if($path == null){
+//        $path = '../upload/';
+//    }
+//    $extention = explode('.', $file['avatar']['name']);
+//    $extention = end($extention);
+//    $fileNameUnique = $encode.$extention;
+//    $fileNameUniquePath = $path.$fileNameUnique;
+//    if($_FILES['avatar']['error'] != 0){
+//        $error = true;
+//        $messages[] = "Une erreur s'est produite";
+//    }
+//    if(in_array($extention, $extentions) != true){
+//        $error = true;
+//        $messages[] = "L'extention $extention n'est pas autorisée";
+//    }
+//    if($_FILES['avatar']['size'] > $size){
+//        $error = true;
+//        $messages[] = "Votre fichier doit être inférieur ou égal à 2Mo.";
+//    }
+//    if(!is_dir($path)){
+//        mkdir($path, 777);
+//    }
+//    if(file_exists($path.($_FILES['avatar']['name']))){
+//        $error = true;
+//        $messages[]='Le fichier existe déjà.';
+//    }
+//    if(!$error){
+//        move_uploaded_file($_FILES['avatar']['tmp_name'], $fileNameUniquePath);
+//    }
+//
+//    return $messages;
+//    // Vérif code reponse $_FILES------------------------------------v
+//    // Vérif des extentions de fichiers autorisées-------------------v
+//    // Vérif du poids du fichier < max 2Mo---------------------------v
+//    // Donner un nom unique au fichier avant de le telecharger-------v
+//    // (option : alerter si un fichier existe deja
+//    // si tout est ok : deplacement du fichier de la memoire temporaire vers repertoire final upload
+//    // Return tableau avec les divers infos concernant le preocessus d'upload
+//}
+///**
+// * Recuperation d'avatar avec son controle, encodage, criptage & path
+// * @param string $file
+// * @param array $validator
+// * @return array
+// */
+//
+//function upload($file, $validator = null){
+//    $error = false;
+//    $messages = [];
+//    if($validator == null){
+//        $extentions = ['jpg', 'jpeg', 'png', 'gif'];
+//        $size = 2000000;
+//        $encode = sha1(uniqid()).'.';
+//        $path = '../upload/';
+//        $fileName = $file['avatar']['name'];
+//    }else{
+//        $extentions = $validator['extentions'];
+//        $size = $validator['size'];
+//        $path = '../'.$validator['dir'];
+//        $fileName = $file[$validator['name']];
+//        $encode = sha1(uniqid()).'.';
+//    }
+//    $extention = explode('.', $fileName);
+//    $extention = end($extention);
+//    $fileNameUnique = $encode.$extention;
+//    $fileNameUniquePath = $path.$fileNameUnique;
+//    if($fileName['error'] != 0){
+//        $error = true;
+//        $messages[] = "Une erreur s'est produite";
+//    }
+//    if(in_array($extention, $extentions) != true){
+//        $error = true;
+//        $messages[] = "L'extention $extention n'est pas autorisée";
+//    }
+//    if($fileName['size'] > $size){
+//        $error = true;
+//        $messages[] = "Votre fichier doit être inférieur ou égal à 2Mo.";
+//    }
+//    if(!is_dir($path)){
+//        mkdir($path, 777);
+//    }
+//    if(file_exists($path.($fileName['name']))){
+//        $error = true;
+//        $messages[]='Le fichier existe déjà.';
+//    }
+//    if(!$error){
+//        move_uploaded_file($fileName['tmp_name'], $fileNameUniquePath);
+//    }
+//
+//    return $messages;
+//    die();
+

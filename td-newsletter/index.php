@@ -4,37 +4,24 @@ $message = getFlash();
 $data_form = (isset($_SESSION['data_form']))? $_SESSION['data_form'] : null;
 $register = isset($_SESSION['register']) && $_SESSION['register']? true : false;
 unset($_SESSION['register']);
+require_once('views/partial/header_admin.php');
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-            crossorigin="anonymous"></script>
-    <title>Tp</title>
-</head>
 <body>
 <div class="container">
-    <div class="row mb-5 justify-content-center"><h1>Mes Passions.com</h1></div>
+    <div class="row mb-5 justify-content-center">
+        <h1>Mes Passions.com</h1>
+    </div>
     <div class="row">
         <div class="col-lg-8">
             <?= $message ?>
             <?php if(!$register) : ?>
-                <h2 class="text-center">Merci de vous inscrire</h2>
+                <h2 class="text-center">
+                    Merci de vous inscrire
+                </h2>
                 <div class="col-lg-6">
-                    <form action="Controller/register.php" method="post" enctype="multipart/form-data">
+                    <form action="Controller/register.php"
+                          method="post"
+                          enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="nom">Nom</label>
                             <input type="text" class="form-control" id="nom" placeholder="Nom" name="nom"
@@ -65,9 +52,12 @@ unset($_SESSION['register']);
                         </div>
                         <div class="form-group">
                             <label for="avatar">Votre avatar</label>
-                            <input type="file" name="avatar" id="avatar">
+                            <input type="file" name="avatar" id="avatar" class="form-control" style="border: 0">
                         </div>
-                        <button type="submit" class="btn btn-primary">Valider</button>
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Valider
+                        </button>
                     </form>
                 </div>
             <?php else: ?>
@@ -79,5 +69,6 @@ unset($_SESSION['register']);
         </div>
     </div>
 </div>
+<?php require_once('views/partial/footer_admin.php') ?>
 </body>
 </html>
