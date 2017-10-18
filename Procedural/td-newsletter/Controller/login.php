@@ -32,7 +32,7 @@ if($user_count && $user['is_admin']){
     $_SESSION['prenom'] = true;
     $_SESSION['nom'] = true;
     $_SESSION['login'] = true;
-    header('Location: ../backend/index.php');
+    header('Location: ../backend/gestion.php');
 }else{
     $messages[]="Vous n'etes pas autorisé à consulter cette page";
     setFlash($messages);

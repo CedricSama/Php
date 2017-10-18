@@ -63,7 +63,7 @@ function login($login, $password, $type = 'login', $count = true){
     global $db;
     $login = clearDataSql($login);
     $password = clearDataSql($password);
-    $sql = "SELECT * FROM user WHERE $type = $login AND password = $password";
+    $sql = "SELECT * FROM user WHERE $type = '$login' AND password = '$password'";
     $result = mysqli_query($db, $sql) or die($sql.'=>'.mysqli_error($db));
     if($count) {
         $result = mysqli_num_rows($result);
@@ -83,4 +83,18 @@ function findAllUser($count = false){
         $result = mysqli_num_rows($result);
     }
     return $result;
+}
+/**
+ * Update droit admin or not
+ * @param $is_admin
+ * @param $id
+ * @return bool|mysqli_result
+ */
+function setAdmin($is_admin, $id){
+    global $db;
+    $is_admin = clearDataSql($is_admin);
+    $id = clearDataSql($id);
+    $sql = "UPDATE user SET is_admin = $is_admin WHERE id = $id";
+    $response = mysqli_query($db, $sql) or die($sql.' => '.mysqli_error($db));
+    return $response;
 }
