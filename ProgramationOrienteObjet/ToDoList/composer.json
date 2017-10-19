@@ -1,0 +1,16 @@
+{
+    "name": "stagiaire/php-to-do-list",
+    "license": "",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "TODO\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cédric",
+            "email": "stagiaire@next.fr"
+        }
+    ]
+}
