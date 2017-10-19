@@ -1,7 +1,7 @@
 <?php
-    namespace TODO\Repository;
+    namespace TODO\Model\Repository;
     use TODO\Kernel\DB;
-    use TODO\Entity;
+    use TODO\Model\Entity;
     class UserRepository{
         private $table_name = 'user';
         private $pdo;

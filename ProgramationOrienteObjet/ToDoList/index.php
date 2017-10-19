@@ -17,5 +17,3 @@
     }
 // Instancier le controller principal
     new \TODO\Kernel\Controller();
-    
-    //http://localhost:8000/?action=task/index

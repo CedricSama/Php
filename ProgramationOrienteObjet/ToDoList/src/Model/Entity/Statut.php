@@ -1,5 +1,5 @@
 <?php
-    namespace TODO\Entity;
+    namespace TODO\Model\Entity;
     class Statut{
         private $id_statut;
         private $libelle;

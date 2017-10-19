@@ -1,14 +1,15 @@
 <?php
-   namespace TODO\Entity;
+   namespace TODO\Model\Entity;
     class Task{
         private $id_task;
         private $titre;
         private $resume;
         private $content;
-        private $creat_at;
+        private $created_at;
         private $update_at;
-        private $id_staut;
+        private $id_statut;
         private $id_user;
+        private $libelle;
         /**
          * @return mixed
          */
@@ -58,21 +59,38 @@
             $this -> content = $content;
         }
         /**
+         * @param bool $date_format
          * @return mixed
          */
-        public function getCreatAt(){
-            return $this -> creat_at;
+        public function getCreatedAt($date_format = false){
+            if($date_format){
+                if(is_string($this->created_at)){
+                    $this->created_at = new \DateTime($this->created_at);
+                }
+                $date_fr = $this -> created_at -> format('d/m/Y');
+                return $date_fr;
+            }
+            return $this -> created_at;
         }
         /**
-         * @param mixed $creat_at
+         * @param mixed $created_at
          */
-        public function setCreatAt($creat_at){
-            $this -> creat_at = $creat_at;
+        public function setCreatedAt($created_at){
+            $this -> created_at = $created_at;
         }
         /**
-         * @return mixed
+         * @param bool $date_format
+         * @return string
          */
-        public function getUpdateAt(){
+        public function getUpdateAt($date_format = false){
+            if($date_format){
+                if(is_string($this->created_at)){
+                    $this->created_at = new \DateTime($this->created_at);
+                }
+                $date_fr = $this -> created_at -> format('d/m/Y');
+                return $date_fr;
+            }
+    
             return $this -> update_at;
         }
         /**
@@ -84,15 +102,16 @@
         /**
          * @return mixed
          */
-        public function getIdStaut(){
-            return $this -> id_staut;
+        public function getIdStatut(){
+            return $this -> id_statut;
         }
         /**
-         * @param mixed $id_staut
+         * @param mixed $id_statut
          */
-        public function setIdStaut($id_staut){
-            $this -> id_staut = $id_staut;
+        public function setIdStatut($id_statut){
+            $this -> id_statut = $id_statut;
         }
+      
         /**
          * @return mixed
          */
@@ -105,5 +124,18 @@
         public function setIdUser($id_user){
             $this -> id_user = $id_user;
         }
+        /**
+         * @return mixed
+         */
+        public function getLibelle(){
+            return $this -> libelle;
+        }
+        /**
+         * @param mixed $libelle
+         */
+        public function setLibelle($libelle){
+            $this -> libelle = $libelle;
+        }
+        
         
     }

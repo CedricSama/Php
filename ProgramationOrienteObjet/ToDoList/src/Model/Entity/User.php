@@ -1,5 +1,5 @@
 <?php
-    namespace TODO\Entity;
+    namespace TODO\Model\Entity;
     class User{
         private $id_user;
         private $login;

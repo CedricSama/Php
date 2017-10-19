@@ -1,6 +1,7 @@
 <?php
     namespace TODO\Controller;
-    use TODO\Repository\TaskRepository;
+    use TODO\Model\Entity\Task;
+    use TODO\Model\Repository\TaskRepository;
     class ControllerTask{
         private $root_path_views;
         /**
@@ -22,6 +23,36 @@
         }
         public function show(){
             echo "salut c'est la méthode show";
+        }
+        /**
+         * Crée une nouvelle Task > afficher la vue formulaire
+         */
+        public function create(){
+            require_once($this -> root_path_views.'create.php');
+        }
+        /**
+         * Création d'un objet de type TODO\Entity\Task
+         * Recupere les donnée du formulaire
+         * Enregistre via une requete SQL
+         * et redirige svers page index
+         */
+        public function store(){
+            $task = new Task();
+            $task->setIdStatut(3);
+            $task->setIdUser(1);
+            $now = new \DateTime();
+            $datetime_sql = $now->format('Y-m-d\TH:i:s:u');
+            $task->setCreatedAt($datetime_sql);
+            $task->setUpdateAt($datetime_sql);
+            //Ensuite Hydrater l'instence
+            $task->setTitre($_POST['titre']);
+            $task->setResume($_POST['titre']);
+            $task->setContent($_POST['titre']);
+            //SQL Request
+            $task_repository = new TaskRepository();
+            $task_repository->create($task);
+            // isset($_POST['titre'])
+            require_once($this -> root_path_views.'index.php');
         }
     }
     
