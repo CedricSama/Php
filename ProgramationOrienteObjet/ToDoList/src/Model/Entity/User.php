@@ -8,8 +8,8 @@
         private $nom;
         private $prenom;
         private $is_admin;
-        private $creat_at;
-        private $update_at;
+        private $created_at;
+        private $updated_at;
         /**
          * @return mixed
          */
@@ -32,6 +32,7 @@
          * @param mixed $login
          */
         public function setLogin($login){
+            $login = trim($login);
             $this -> login = $login;
         }
         /**
@@ -43,8 +44,18 @@
         /**
          * @param mixed $email
          */
-        public function setEmail($email){
-            $this -> email = $email;
+        public function setEmail($email, $redirection){
+            $is_valid = filter_var($email, FILTER_VALIDATE_EMAIL)? true : false;
+            if($is_valid){
+                $dom = explode('@', $email);
+                $domaine = $dom[1];
+                $is_valid = checkdnsrr($domaine, 'MX')? true : false;
+                header('Location: '.$redirection);
+                if($is_valid){
+                    $this -> email = $email;
+                }
+            }
+            
         }
         /**
          * @return mixed
@@ -55,8 +66,12 @@
         /**
          * @param mixed $password
          */
-        public function setPassword($password){
-            $this -> password = $password;
+        public function setPassword($password, $redirection){
+            $is_valid = strlen($password) >= 4? true : false;
+            header('Location: '.$redirection);
+            if($is_valid){
+                $this -> password = sha1($password);
+            }
         }
         /**
          * @return mixed
@@ -97,27 +112,39 @@
         /**
          * @return mixed
          */
-        public function getCreatAt(){
-            return $this -> creat_at;
+        public function getCreatedAt($date_format = false){
+            if($date_format){
+                if(is_string($this->created_at)){
+                    $this->created_at = new \DateTime($this->created_at);
+                }
+                $date_fr = $this -> created_at -> format('d/m/Y');
+                return $date_fr;
+            }
+            return $this -> created_at;
         }
         /**
-         * @param mixed $creat_at
+         * @param mixed $created_at
          */
-        public function setCreatAt($creat_at){
-            $this -> creat_at = $creat_at;
+        public function setCreatedAt($created_at){
+            $this -> created_at = $created_at;
         }
         /**
          * @return mixed
          */
-        public function getUpdateAt(){
-            return $this -> update_at;
+        public function getUpdatedAt($date_format = false){
+            if($date_format) {
+                if(is_string($this->updated_at)) {
+                    $this->updated_at = new \DateTime($this->updated_at);
+                }
+                $date_fr = $this->updated_at->format('d-m-Y');
+                return $date_fr;
+            }
+            return $this->updated_at;
         }
         /**
-         * @param mixed $update_at
+         * @param mixed $updated_at
          */
-        public function setUpdateAt($update_at){
-            $this -> update_at = $update_at;
+        public function setUpdatedAt($updated_at){
+            $this -> updated_at = $updated_at;
         }
-        
-        
     }

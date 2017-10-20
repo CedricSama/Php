@@ -6,7 +6,7 @@
         private $resume;
         private $content;
         private $created_at;
-        private $update_at;
+        private $updated_at;
         private $id_statut;
         private $id_user;
         private $libelle;
@@ -79,26 +79,25 @@
             $this -> created_at = $created_at;
         }
         /**
-         * @param bool $date_format
-         * @return string
+         * @return mixed
          */
-        public function getUpdateAt($date_format = false){
-            if($date_format){
-                if(is_string($this->created_at)){
-                    $this->created_at = new \DateTime($this->created_at);
+        public function getUpdatedAt($date_format = false){
+            if($date_format) {
+                if(is_string($this->updated_at)) {
+                    $this->updated_at = new \DateTime($this->updated_at);
                 }
-                $date_fr = $this -> created_at -> format('d/m/Y');
+                $date_fr = $this->updated_at->format('d-m-Y');
                 return $date_fr;
             }
-    
-            return $this -> update_at;
+            return $this->updated_at;
         }
         /**
-         * @param mixed $update_at
+         * @param mixed $updated_at
          */
-        public function setUpdateAt($update_at){
-            $this -> update_at = $update_at;
+        public function setUpdatedAt($updated_at){
+            $this -> updated_at = $updated_at;
         }
+        
         /**
          * @return mixed
          */
