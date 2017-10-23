@@ -1,0 +1,9 @@
+{
+    "name": "stagiaire/php-to-do-list",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "TODO\\": "src"
+        }
+    }
+}
