@@ -62,7 +62,7 @@
             $task_repository -> create($task);
             // isset($_POST['titre'])
             //$this -> index();
-            header('Location: index.php?action=task/index');
+            header('Location: ?action=task/index');
         }
     }
     
