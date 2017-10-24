@@ -4,8 +4,8 @@
     class Product extends Model{
         public $taxe;
         
-        public function calculTtc($prix_ht){
+        public function displayPrice($prix_ht){
             $prix_ht = $prix_ht * $this->taxe;
-        return $prix_ht;
+        return number_format($prix_ht);
         }
     }
