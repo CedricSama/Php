@@ -12,4 +12,6 @@
    /* Route ::get('/', function(){
         return view('welcome');
     });*/
-   Route ::get('/', 'Front\MainController@index');
+   Route::get('/', 'Front\MainController@index')->name('liste_tshirt');
+   Route::get('/t-shirt/(id)', 'Front\MainController@show')->name('voir_tshirt');
+   Route::get('/backend', 'Backend\ProductController@index')->name('backend_homepage');
