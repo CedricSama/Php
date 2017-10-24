@@ -1,3 +1,6 @@
 *1 Déclarer la route. (web.php)
 *2 Etablire la fonction dans MainController
 *3 Créer la vue qui correspond a la methode (ex function show -> vue show.blade.php)
+
+*1 creation d'une methode afficher un formulaire (dans product controller)
+*2

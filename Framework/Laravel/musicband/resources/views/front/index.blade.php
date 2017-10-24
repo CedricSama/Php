@@ -8,7 +8,7 @@
                 @foreach($products as $product)
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <a href="{{route('voir_tshirt', ['id'=>$product->id])}}"><img src="{{asset('img/'.$product->photo)}}"
+                            <a href="{{route('voir_tshirt', ['id'=>$product->id])}}"><img src="{{asset('uploads/'.$product->photo)}}"
                                  alt="{{$product->nom}}"
                                  title="{{$product->nom}}"></a>
                             <div class="caption">

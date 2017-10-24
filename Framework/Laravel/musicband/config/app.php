@@ -65,7 +65,7 @@
         | to any of the locales which will be supported by the application.
         |
         */
-        'locale' => 'en',
+        'locale' => 'fr',
         /*
         |--------------------------------------------------------------------------
         | Application Fallback Locale
@@ -76,7 +76,7 @@
         | the language folders that are provided through your application.
         |
         */
-        'fallback_locale' => 'en',
+        'fallback_locale' => 'fr',
         /*
         |--------------------------------------------------------------------------
         | Encryption Key
