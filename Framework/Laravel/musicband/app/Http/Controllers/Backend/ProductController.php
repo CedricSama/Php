@@ -1,16 +1,29 @@
 <?php
     namespace App\Http\Controllers\Backend;
+    use App\Category;
     use App\Product;
     use Illuminate\Http\Request;
     use App\Http\Controllers\Controller;
     class ProductController extends Controller{
+        /**
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
         public function index(){
             $products = Product::all();
-            return view('backend.product.index', compact('products'));
+            $categories = Category::all();
+            return view('backend.product.index', compact('products'),compact('categories'));
         }
+        /**
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
         public function create(){
-            return view('backend.product.createOrEdit');
+            $categories = Category::all();
+            return view('backend.product.createOrEdit', compact('categories'));
         }
+        /**
+         * @param Request $request
+         * @return \Illuminate\Http\RedirectResponse
+         */
         public function store(Request $request){
             //dd($request);
             $this->validate(\request(),[
@@ -43,7 +56,8 @@
          */
         public function edit($id_product){
             $product = Product::find($id_product);
-            return view('backend.product.createOrEdit', compact('product'));
+            $categories = Category::all();
+            return view('backend.product.createOrEdit', compact('product'), compact('categories'));
         }
         /**
          * @param         $id_product
@@ -72,10 +86,13 @@
             $product->save();
             return redirect(route('backend_homepage'))->with('message_success', 'Le produit a bien été mise à jour.');
         }
-        public function delete($id_product, Request $request){
+        /**
+         * @param $id_product
+         * @return \Illuminate\Http\RedirectResponse
+         */
+        public function delete($id_product){
             $product = Product::find($id_product);
             $product->delete();
             return redirect(route('backend_homepage'))->with('message_success', 'Le produit a bien été supprimé.');
         }
-    
     }

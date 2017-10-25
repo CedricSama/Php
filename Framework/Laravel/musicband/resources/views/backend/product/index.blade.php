@@ -16,26 +16,35 @@
                     <thead style="padding: auto">
                     <tr>
                         <th class="text-center">Nom</th>
+                        <th class="text-center">Catégorie</th>
                         <th class="text-center">Description</th>
                         <th class="text-center">Photo</th>
                         <th class="text-center">Prix ht</th>
-                        <th class="text-center"><a href="{{route('backend_product_create')}}" class="btn btn-success"
-                                                   style="margin-top: 5px">Add</a></th>
+                        <th class="text-center">
+                            <a href="{{route('backend_product_create')}}"
+                               class="btn btn-success"
+                               style="margin-top: 5px">Add
+                            </a>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($products as $product)
                         <tr class="text-center " style="padding: 20px">
                             <td>{{$product->nom}}</td>
+                            <td>{{$product->category->nom}}</td>
                             <td>{{$product->description}}</td>
                             <td>
                                 <img src="{{asset('uploads/'.$product->photo)}}" alt="{{asset('uploads/'.$product->photo)}}"
                                      style="height: 100px">
                             </td><!--img-->
-                            <td>{{$product->prix_ht}}</td>
+                            <td>{{$product->prixTTC()}}</td>
                             <td>
-                                <a href="{{route('backend_product_edit', ['id'=>$product->id])}}" class="btn btn-info" style="margin-top: 5px">Update</a>
-                                <a href="{{route('backend_product_delete', ['id'=>$product->id])}}" class="btn btn-danger" style="margin-top: 5px">Delete</a>
+                                <a href="{{route('backend_product_edit', ['id'=>$product->id])}}"
+                                   class="btn btn-info" style="margin-top: 5px">Update</a>
+                                <a href="{{route('backend_product_delete', ['id'=>$product->id])}}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Sans regret?')">Delete</a>
                             </td>
                         </tr>
                     @endforeach
