@@ -2,6 +2,10 @@ mailtrap (simulation de boite email avec un server smtp)
 mailgun (simule boite maile)
 swiftmailer (envoie de email)(Symphony & Laravel)
 
+AppServiceProvider
+dans la methode boot pour augmenter la porté des variables
+
+*I/ import d'une classe Service Disponible partout app >> nouveau fichier /Services >> /Calculette >>3Classes !!!!!!!!!
 
 
 *1 Déclarer la route. (web.php)

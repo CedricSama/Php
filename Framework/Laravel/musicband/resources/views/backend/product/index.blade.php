@@ -32,7 +32,7 @@
                     @foreach($products as $product)
                         <tr class="text-center " style="padding: 20px">
                             <td>{{$product->nom}}</td>
-                            <td>{{$product->category->nom}}</td>
+                            <td>@if(is_object($product->category)){{$product->category->nom}}@endif</td>
                             <td>{{$product->description}}</td>
                             <td>
                                 <img src="{{asset('uploads/'.$product->photo)}}" alt="{{asset('uploads/'.$product->photo)}}"

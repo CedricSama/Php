@@ -25,10 +25,10 @@
                 <tbody>
                 @foreach($products as $product)
                     <tr>
-                        <td><img width="50"
+                        <td><a href="{{route('voir_tshirt', ['id'=>$product->id])}}"><img width="50"
                                  src="{{asset('uploads/'.$product->attributes['photo'])}}"
-                                 alt=""></td>
-                        <td>{{$product->name}}</td>
+                                 alt=""></a></td>
+                        <td><a href="{{route('voir_tshirt', ['id'=>$product->id])}}">{{$product->name}}</a></td>
                         <td>{{number_format($product->price, 2)}}</td>
                         <td>
                             <form action="{{route('panier_qte_update')}}" method="post">
@@ -55,8 +55,7 @@
                 <td colspan="4"  class="text-right">Sous-total :</td>
                 <td>{{number_format($sous_total, 2)}} €</td>
                     </tr>
-                {{$remises}}
-                @if(isset($remises) && $panier_vide == true)
+                @if(isset($remises) && count($panier_remises) >0)
                     <tr>
                         <td colspan="4" class="text-right">Remise :</td>
                         <td>@foreach($remises as $remise){{$remise->getName()}}  {{$remise->getValue()}}@endforeach</td>
@@ -76,15 +75,16 @@
                     <form action="{{route('panier_check_coupon')}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <input type="text" name="coupon" class="form-control" title="coupon" value="">
+                            <input type="text" name="coupon" class="form-control" title="coupon">
                         </div>
                         <input type="submit" value="Appliquer">
                     </form>
                 </div>
             </div>
+                <a href="{{route('order')}}" class="btn btn-lg btn-primary pull-right" style="margin-top: 20px">Commander</a>
         @else
             <a href="{{route('liste_tshirt')}}" class="text-center"><h1>Votre Panier est vide !</h1></a>
         @endif
-            <a href="" class="btn btn-lg btn-primary pull-right" style="margin-top: 20px">Commander</a>
+        
     </div>
 @endsection

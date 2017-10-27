@@ -31,6 +31,7 @@
     Route::get('/backend/category/destroy/{id}', 'Backend\CategoryController@destroy') -> name('backend_category_destroy');
     
     Route::post('/panier/add', 'Front\CartController@add')->name('panier_add');
+    Route::post('/panier/addOne', 'Front\CartController@addOne')->name('panier_add_one');
     Route::get('/panier', 'Front\CartController@index')->name('panier');
     Route::post('/panier/update/qte', 'Front\CartController@updateQte')->name('panier_qte_update');
     Route::get('/panier/delete/product/{id}', 'Front\CartController@delete')->name('panier_delete_product');
@@ -43,3 +44,9 @@
     Route::post('/backend/coupon/update/{id}', 'Backend\CouponController@update') -> name('backend_coupon_update');
     Route::get('/backend/coupon/destroy/{id}', 'Backend\CouponController@destroy') -> name('backend_coupon_destroy');
     
+    Route::get('/order', 'Front\OrderController@index') -> name('order');
+    Route::post('/order/validation', 'Front\OrderController@createCommande') -> name('order_validation');
+    Route::get('backend/commandes', 'Backend\CommandeController@index') -> name('commandes');
+    Route::get('backend/commande/show/{id}', 'Backend\CommandeController@show') -> name('commande_show');
+    
+

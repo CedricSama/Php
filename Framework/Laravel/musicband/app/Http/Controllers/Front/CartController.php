@@ -12,10 +12,18 @@
             Cart::add(['id' => $product->id, 'name' => $product->nom, 'price' => $product->prixTTC(), 'quantity' => $request->qte, 'attributes' => ['photo' => $product->photo]]);
             return redirect()->to(route('panier'));
         }
+        public function addOne(Request $request){
+            $product = Product::find($request->product_id);
+            Cart::add(['id' => $product->id,
+                       'name' => $product->nom,
+                       'price' => $product->prixTTC(),
+                       'quantity' => +1,
+                       'attributes' => ['photo' => $product->photo]]);
+            return redirect()->to(route('panier'));
+        }
         public function index(){
             $products = Cart::getContent();
             $products = array_sort($products);
-            //dd($produtcs);
             $sous_total = Cart::getSubTotal();
             $remises = Cart::getConditions();
             $total = Cart::getTotal();
@@ -27,14 +35,14 @@
             return redirect()->to(route('panier'));
         }
         public function delete(Request $request){
-            Cart::remove($request->product_id);
+            Cart::remove($request->id);
             return redirect()->to(route('panier'));
         }
         public function compare(Request $request){
             $code = Coupon::where('code', $request->coupon);
             $count = $code->count();
-            //$value = $code->value('value');
             $coupon = $code->first();
+            //$value = $code->value('value');
             //dd($coupon->value);
             if($count == 1){
                 $promo = new CartCondition(array('name' => $coupon->code,

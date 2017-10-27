@@ -6,6 +6,7 @@
             </li>
             <li><a href="{{route('backend_categories')}}">Categories</a></li>
             <li><a href="{{route('backend_coupons')}}">Coupons Réduc</a></li>
+            <li><a href="{{route('commandes')}}">Liste des commandes</a></li>
             <li><a href="{{route('panier')}}">Panier</a></li>
         </ul>
     </div>
