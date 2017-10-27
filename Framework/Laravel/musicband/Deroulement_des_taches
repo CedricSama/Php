@@ -1,9 +1,26 @@
+mailtrap (simulation de boite email avec un server smtp)
+mailgun (simule boite maile)
+swiftmailer (envoie de email)(Symphony & Laravel)
+
+
+
 *1 Déclarer la route. (web.php)
 *2 Etablire la fonction dans MainController
 *3 Créer la vue qui correspond a la methode (ex function show -> vue show.blade.php)
 
-*1 creation d'une methode afficher un formulaire (dans ProductController)
-*2
+*1 creation d'une methode afficher un formulaire (dans ProductController) (index)
+*2 passer dans un variable la classe et passer la variable a la vue grace a la methode compact
+*3 crée la vu correspondant a la methode (ici-index) (ici - avec le moteur de template blade(utiliser avec laravel))
+*4 declarer la route (dans web.php)
+*5 appeler les route dans la vue pour appeler les methodes utilisé dans la vu index (et passer les appelles a la vu index via la route)
 
+*1Créer une table coupon avec 2 arrtibus >code (le code à a saisir) et value
+php artisan make:model Coupon -m
+>> créer le fichier de migration deux champs : string code string value
 
-*
+*2 créer un Crud dans le backend pour les coupons
+*3 Lorsqu'un coupon est appliqué on appelle une action dans un controller qui va veridier si le coupon existe
+*4 si oui on recupere la valeur du coupon et applique une cart condition au panier avec la valeur du coupon
+*5 si non message d'erreur
+*6 si coupon deja utilisé on ne l'applique pas de nouveau
+*7 dans tous les cas on redirige vers le panier

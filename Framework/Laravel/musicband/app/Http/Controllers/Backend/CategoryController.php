@@ -62,7 +62,7 @@
             $this->validate(\request(), $validation);
             $category -> fill($request -> all());
             $category -> save();
-            return redirect(route('backend_homepage')) -> with('message_success', 'La catégorie a été mise a jour.');
+            return redirect(route('backend_homepage')) -> with('message_success', 'La catégorie a été mise à jour.');
         }
         /**
          * @param $id_category

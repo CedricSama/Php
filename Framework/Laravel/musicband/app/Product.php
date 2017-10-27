@@ -18,4 +18,7 @@
             $prixTTC = $this->prix_ht * self::taux_tva;
             return number_format($prixTTC, 2);
         }
+        public function coupon(){
+            return $this->belongsTo(Coupon::class);
+        }
     }

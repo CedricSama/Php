@@ -5,7 +5,8 @@
             <li class="active"><a href="{{route('product_by_cat', ['id'=> $category->id])}}">{{$category->nom}}</a></li>
         @endforeach
         <li role="separator" class="divider"></li>
-        <li><a href="#">Panier</a></li>
+        <li><a href="{{route('panier')}}">Panier</a></li>
+        <li><a href="{{route('backend_homepage')}}">Backend</a></li>
     </ul>
 </div><!--/.nav-collapse -->
 

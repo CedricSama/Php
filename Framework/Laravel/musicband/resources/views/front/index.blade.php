@@ -6,11 +6,11 @@
             <h2>Achetez nos goodies !</h2>
             <div class="row">
                 @foreach($products as $product)
-                    <div class="col-sm-4 col-md-4">
+                    <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <a href="{{route('voir_tshirt', ['id'=>$product->id])}}"><img src="{{asset('uploads/'.$product->photo)}}"
+                            <img src="{{asset('uploads/'.$product->photo)}}"
                                  alt="{{$product->nom}}"
-                                 title="{{$product->nom}}"></a>
+                                 title="{{$product->nom}}">
                             <div class="caption">
                                 <h3>{{$product->nom}}</h3>
                                 <p>{{$product->description}}</p>
