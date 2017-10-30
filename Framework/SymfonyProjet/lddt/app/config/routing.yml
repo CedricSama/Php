@@ -1,0 +1,4 @@
+lddt_main:
+    resource: "@LddtMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
