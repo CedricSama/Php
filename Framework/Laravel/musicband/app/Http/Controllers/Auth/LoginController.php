@@ -2,6 +2,8 @@
     namespace App\Http\Controllers\Auth;
     use App\Http\Controllers\Controller;
     use Illuminate\Foundation\Auth\AuthenticatesUsers;
+    use Illuminate\Support\Facades\Auth;
+    use Symfony\Component\HttpFoundation\Request;
     class LoginController extends Controller{
         /*
         |--------------------------------------------------------------------------
@@ -28,4 +30,8 @@
         public function __construct(){
             $this->middleware('guest')->except('logout');
         }
+/*        public function authCmd(Request $request){
+            //methode d'identification d'un user
+            Auth::attempt(["email"=>$request->email, "password"=>$request->password]);
+        }*/
     }

@@ -2,11 +2,13 @@
     namespace App\Http\Controllers\Front;
     use App\Commande;
     use App\CommandeProduct;
+    use App\Mail\OrderNew;
     use App\Product;
     use Calculette;
     use Illuminate\Http\Request;
     use App\Http\Controllers\Controller;
     use Cart;
+    use Illuminate\Support\Facades\Mail;
     class OrderController extends Controller{
         public function index(){
             return view('front.order.index');
@@ -45,14 +47,19 @@
                 $p = Product::find($product->id);
                 //Création des produits dans CommandeProduct
                 $commande_products = new CommandeProduct();
-                $commande_products->produit_id = $product->id;
+                $commande_products->product_id = $product->id;
                 $commande_products->commande_id = $commande->id;
                 $commande_products->quantity = $product->quantity;
                 $commande_products->prix_unit_ttc = $p->prixTTC();
                 $commande_products->prix_total_ttc = $p->prixTTC() * $product->quantity;
                 $commande_products->save();
             }
-            echo "commande crée";
-            die();
+            Mail::to($commande->email)->send(new OrderNew($commande));
+            return redirect()->route('merci');
+        }
+        public function merci(){
+            //vider le panier
+            Cart::clear();
+            return view('front.order.merci');
         }
     }

@@ -9,7 +9,7 @@
          *
          * @var array
          */
-        protected $fillable = ['name', 'email', 'password',];
+        protected $fillable = ['name', 'email', 'password', 'prenom'];
         /**
          * The attributes that should be hidden for arrays.
          *

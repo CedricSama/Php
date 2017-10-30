@@ -8,4 +8,5 @@
         public function produits(){
             return $this->belongsToMany('App\Product', 'commande_products')->withPivot('quantity', 'prix_unit_ttc', 'prix_total_ttc');
         }
+        
     }

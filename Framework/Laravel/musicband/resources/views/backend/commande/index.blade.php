@@ -2,6 +2,9 @@
 @section('content')
     <div class="container">
         <h1 class="page-header">Commandes Dashboard</h1>
+        <h2>Total Commandes: {{count($commandes)}}</h2>
+        <h2>Total Chiffre d'affaire du mois: {{$total_ca_mois}} €</h2>
+        <h2>Total commandes du mois: {{$total_commandes}}</h2>
         <div class="panel panel-info">
             <!-- Default panel contents -->
             <div class="panel-heading text-center"><b>Liste des commandes</b></div>
@@ -14,6 +17,7 @@
                         <th class="text-center">Date de création</th>
                         <th class="text-center">Nom du client</th>
                         <th class="text-center">Total TTC</th>
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -28,6 +32,7 @@
                                     {{$commande->prix_total_ttc}}
                                 @endif
                             </td>
+                            <td><a href="{{route('commande_show', ['id'=>$commande->id])}}" class="btn btn-xs btn-primary">Voir</a></td>
                         </tr>
                     @endforeach
                     </tbody>
