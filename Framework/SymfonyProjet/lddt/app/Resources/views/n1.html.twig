@@ -9,19 +9,18 @@
     <meta name="description" content="Envoyez vos dessins réalisés au téléphone.">
     <meta name="author" content="Marie de Ubeda">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/lddtmain/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
 </head>
 <body>
-
 {% block body %}{% endblock %}
 {# {% block body %}{% endblock body %} #}
 {# {% block javascripts %}{% endblock %} #}
@@ -30,7 +29,9 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- Insertion Fichiers JS -->
 <script src="https://code.jquery.com/jquery.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('bundles/lddtmain/css/bootstrap.min.css') }}"></script>
+{% endblock %}
 <!-- Fin insertion JS -->
 </body>
 </html><!-- Fin du NIVEAU 1 -->
