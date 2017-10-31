@@ -5,4 +5,5 @@
         public function indexAction(){
             return $this->render('LddtMainBundle:Default:index.html.twig');
         }
+        public function createAction(){}
     }
