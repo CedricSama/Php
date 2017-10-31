@@ -2,3 +2,6 @@ lddt_main_homepage:
     path:     /
     defaults: { _controller: LddtMainBundle:Default:index }
 #    Ici sont les routes local (contrainrement au app/config/routing.yml qui est un routing général)
+lddt_main_create:
+    path:     /create
+    defaults: { _controller: LddtMainBundle:Default:create }
