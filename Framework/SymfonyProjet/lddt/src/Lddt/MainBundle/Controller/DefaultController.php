@@ -24,7 +24,6 @@
             $em->persist($draw);
             //apres tout les persist il execute la ou les requete(s)
             $em->flush();
-            
             return $this->redirect('lddt_main_homepage');
         }
     }
