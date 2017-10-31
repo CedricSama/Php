@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <!-- Titre Princiapl + Titre "hérité" -->
-    <title>{% block title %}Les dessins du téléphone{% endblock %}</title>
+    <title>{% block title %} Les dessins du téléphone {% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Envoyez vos dessins réalisés au téléphone.">
     <meta name="author" content="Marie de Ubeda">
     <!-- Bootstrap -->
     {% block stylesheets %}
-        <link href="{{ asset('bundles/lddtmain/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/lddtmain/css/bootstrap.css') }}" rel="stylesheet">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -30,7 +30,7 @@
 <!-- Insertion Fichiers JS -->
 <script src="https://code.jquery.com/jquery.js"></script>
 {% block javascript %}
-    <script type="text/javascript" src="{{ asset('bundles/lddtmain/css/bootstrap.min.css') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/lddtmain/js/bootstrap.js') }}"></script>
 {% endblock %}
 <!-- Fin insertion JS -->
 </body>

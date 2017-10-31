@@ -58,7 +58,20 @@
          * @ORM\Column(name="updated_at", type="datetime")
          */
         private $updatedAt;
-        
+        /**
+         * Clé etrangère venant de Category
+         * Plusieurs Dessins (Many) dans (To) une catégorie (One)
+         * @ORM\ManyToOne(targetEntity="Lddt\MainBundle\Entity\Category")
+         * @ORM\JoinColumn(name="id_category", referencedColumnName="id", onDelete="CASCADE")
+         */
+        private $category;
+        /**
+         * ManyToMany
+         * @ORM\ManyToMany(targetEntity="Lddt\MainBundle\Entity\Color", cascade={"persist"})
+         *
+         * @var
+         */
+        private $colors;
         /**
          * Draw constructor.
          *
@@ -210,5 +223,50 @@
         public function getUpdatedAt(){
             return $this->updatedAt;
         }
+        /**
+         * Set category
+         *
+         * @param \Lddt\MainBundle\Entity\Category $category
+         *
+         * @return Draw
+         */
+        public function setCategory(Category $category = null){
+            $this->category = $category;
+            return $this;
+        }
+        /**
+         * Get category
+         *
+         * @return \Lddt\MainBundle\Entity\Category
+         */
+        public function getCategory(){
+            return $this->category;
+        }
+        /**
+         * Add color
+         *
+         * @param \Lddt\MainBundle\Entity\Color $color
+         *
+         * @return Draw
+         */
+        public function addColor(Color $color){
+            $this->colors[] = $color;
+            return $this;
+        }
+        /**
+         * Remove color
+         *
+         * @param \Lddt\MainBundle\Entity\Color $color
+         */
+        public function removeColor(Color $color){
+            $this->colors->removeElement($color);
+        }
+        /**
+         * Get colors
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getColors(){
+            return $this->colors;
+        }
     }
-

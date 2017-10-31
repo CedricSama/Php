@@ -1,29 +1,72 @@
 <?php
     namespace Lddt\MainBundle\Controller;
     use Lddt\MainBundle\Entity\Draw;
+    use Lddt\MainBundle\Form\DrawType;
+    use Lddt\MainBundle\Form\FormHandler;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Component\HttpFoundation\Request;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+    use Lddt\MainBundle\Entity\Category;
     use Symfony\Component\Validator\Constraints\DateTime;
     class DefaultController extends Controller{
         public function indexAction(){
-            return $this->render('LddtMainBundle:Default:index.html.twig');
+            $draws = $this->get('doctrine')->getRepository('LddtMainBundle:Draw')->findAllDraws();
+            return $this->render('LddtMainBundle:Default:index.html.twig',['draws'=>$draws]);
         }
-        public function createAction(){
+        /*public function createAction(){
             //Instancier des dessins sans formulaire
             //hydrater de valeurs
-            $draw = new Draw();
-            $draw->setTitle("Cochonou");
-            $draw->setDrawPath('cochonou.jpd');
-            $draw->setAuthorName('Maire');
-            $draw->setAuthorAvatarPath('marie-ico.jpg');
+            // $draw = new Draw();
+            // $draw->setTitle("Fred");
+            // $draw->setDrawPath('fred.jpd');
+            // $draw->setAuthorName('Maire');
+            // $draw->setAuthorAvatarPath('marie-ico.jpg');
             //Ces donnée on ete placé dans le constructeurs
             // $draw->setIsOnline(true);
             // $draw->setCreatedAt(new \DateTime());
             // $draw->setUpdatedAt(new \DateTime());
-            $em = $this->get('doctrine')->getManager();
+            //Créer une catégorie
+            // $category = new Category();
+            // $category->setName('visage');
+            //Associer le dessin et la categorie
+            // $draw->setCategory($category);
+            //Recupere les services de l'objet doctrine
+            // $em = $this->get('doctrine')->getManager();
             //verifie la requete
-            $em->persist($draw);
+            // $em->persist($draw);
+            // $em->persist($category);
             //apres tout les persist il execute la ou les requete(s)
-            $em->flush();
-            return $this->redirect('lddt_main_homepage');
+            // $em->flush();
+            // return $this->redirectToRoute('lddt_main_homepage');
+        }*/
+        /**
+         * @param Request $request
+         * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+         */
+        public function createAction(Request $request){
+            $em = $this->get('doctrine')->getManager();
+            $form = $this->createForm(DrawType::class, new Draw());
+            $datas = ['form'=> $form->createView()];
+            $formHandler = new FormHandler($form, $request, $em);
+            if($formHandler->process() == true){
+                $this->addFlash('success', 'Dessin ajouté !');
+                return $this->redirectToRoute('lddt_main_homepage');
+            }
+            return $datas;
+        }
+        // La premiere méthode est la methode classic
+        // la deuxieme est la meme chose de facon optimisé grace a l'usilisation de Sensio\Bundle\FrameworkExtraBundle\Configuration\Template
+        /*        public function showAction($id){
+            $draw = $this->get('doctrine')->getRepository('LddtMainBundle:Draw')->find($id);
+            return $this->render('LddtMainBundle:Default:show.html.twig', ['draw'=>$draw]);
+        }*/
+        /**
+         * @param Draw $draw
+         * @Template()
+         * @return array
+         */
+        public function showAction(Draw $draw){
+            $datas = ['draw'=>$draw];
+            return $datas;
         }
     }

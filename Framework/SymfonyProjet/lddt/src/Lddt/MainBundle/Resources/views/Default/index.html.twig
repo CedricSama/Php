@@ -1,4 +1,25 @@
 {% extends '@LddtMain/n2.html.twig' %}
 {% block n3 %}
-    ici la vue tahi
+    {% for draw in draws %}
+        <div class="col-lg-4">
+            <div class="thumbnail">
+                <img class="img-thumbnail" src="{{ asset('bundles/lddtmain/images/'~draw.drawPath) }}"/>
+                <div class="caption">
+                    <p><strong>{{ draw.title }}</strong></p>
+                    <p><a href="#">{{ draw.category.name }}</a></p>
+                    <div class="col-lg-3 col-lg-offset-9">
+                        <p class="AuthorName">
+                            <a href="#">{{ draw.authorName }}</a>
+                            <img width="60" class="img-circle"
+                                 src="{{ asset('bundles/lddtmain/images/'~draw.authorAvatarPath) }}"/>
+                        </p>
+                    </div>
+                    <a class="btn btn-small btn-info"
+                       href="{{ path('lddt_main_show', {id:draw.id}) }}">Voir dessin <i class="icon-eye-open"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container margin-container-top">
+    {% endfor %}
+    </div>
 {% endblock n3 %}

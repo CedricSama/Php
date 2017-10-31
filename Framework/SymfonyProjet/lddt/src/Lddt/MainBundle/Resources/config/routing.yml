@@ -5,3 +5,7 @@ lddt_main_homepage:
 lddt_main_create:
     path:     /create
     defaults: { _controller: LddtMainBundle:Default:create }
+
+lddt_main_show:
+    path:     /show/{id}
+    defaults: { _controller: LddtMainBundle:Default:show }
