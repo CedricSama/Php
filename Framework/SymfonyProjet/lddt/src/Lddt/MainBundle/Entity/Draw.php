@@ -1,6 +1,7 @@
 <?php
     namespace Lddt\MainBundle\Entity;
     use Doctrine\ORM\Mapping as ORM;
+    use Lddt\MainBundle\LddtMainBundle;
     /**
      * Draw
      *
@@ -25,7 +26,7 @@
         /**
          * @var string
          *
-         * @ORM\Column(name="draw_path", type="string", length=255)
+         * @ORM\Column(name="draw_path", type="string", length=255, nullable=true)
          */
         private $drawPath;
         /**
@@ -72,6 +73,14 @@
          * @var
          */
         private $colors;
+        /**
+         * Création de la clé étrangere en ajouté OneToOne et le JoinColumn
+         *
+         * @var
+         * @ORM\OneToOne(targetEntity="Lddt\MainBundle\Entity\Pic", cascade={"persist"}, inversedBy="draw")
+         * @ORM\JoinColumn(name="pic_id", referencedColumnName="id")
+         */
+        private $pic;
         /**
          * Draw constructor.
          *
@@ -268,5 +277,24 @@
          */
         public function getColors(){
             return $this->colors;
+        }
+        /**
+         * Set pic
+         *
+         * @param \Lddt\MainBundle\Entity\Pic $pic
+         *
+         * @return Draw
+         */
+        public function setPic(Pic $pic = null){
+            $this->pic = $pic;
+            return $this;
+        }
+        /**
+         * Get pic
+         *
+         * @return \Lddt\MainBundle\Entity\Pic
+         */
+        public function getPic(){
+            return $this->pic;
         }
     }

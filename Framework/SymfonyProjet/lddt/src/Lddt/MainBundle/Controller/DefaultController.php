@@ -13,6 +13,7 @@
             $draws = $this->get('doctrine')->getRepository('LddtMainBundle:Draw')->findAllDraws();
             return $this->render('LddtMainBundle:Default:index.html.twig',['draws'=>$draws]);
         }
+        
         /*public function createAction(){
             //Instancier des dessins sans formulaire
             //hydrater de valeurs
@@ -39,9 +40,14 @@
             // $em->flush();
             // return $this->redirectToRoute('lddt_main_homepage');
         }*/
+        
         /**
+         * attention au Template()
+         * parametre qui permet de savoir la route
+         * quand on return $datas
          * @param Request $request
          * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+         * @Template()
          */
         public function createAction(Request $request){
             $em = $this->get('doctrine')->getManager();
@@ -54,12 +60,14 @@
             }
             return $datas;
         }
-        // La premiere méthode est la methode classic
+        
+        /* // La premiere méthode est la methode classic
         // la deuxieme est la meme chose de facon optimisé grace a l'usilisation de Sensio\Bundle\FrameworkExtraBundle\Configuration\Template
-        /*        public function showAction($id){
+               public function showAction($id){
             $draw = $this->get('doctrine')->getRepository('LddtMainBundle:Draw')->find($id);
             return $this->render('LddtMainBundle:Default:show.html.twig', ['draw'=>$draw]);
         }*/
+        
         /**
          * @param Draw $draw
          * @Template()
@@ -68,5 +76,43 @@
         public function showAction(Draw $draw){
             $datas = ['draw'=>$draw];
             return $datas;
+        }
+        /**
+         * @param Category $category
+         * @return \Symfony\Component\HttpFoundation\Response
+         */
+        public function drawsByCatAction(Category $category){
+            //Le fait de mettre un type nous permet de ne pas ecrire la ligne suivante
+            /*$category = $this->get('doctrine')->getRepository('LddtMainBundle:Category')->find($id);*/
+            $draws = $this->get('doctrine')->getRepository('LddtMainBundle:Draw')->findAllDrawsByCat($category);
+            return $this->render('LddtMainBundle:Default:index.html.twig', ['draws'=>$draws, 'category'=>$category]);
+        }
+        /**
+         * @param Draw    $draw
+         * @param Request $request
+         * @Template()
+         * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+         */
+        public function editAction(Draw $draw, Request $request){
+            //Ne pas oublié de passer la requete draw en parametre
+            $form = $this->createForm(DrawType::class, $draw);
+            $em = $this->get('doctrine')->getManager();
+            $formHandler = new FormHandler($form, $request, $em);
+            if($formHandler->process() == true){
+                $this->addFlash('success', "Dessin {$draw->getTitle()} modifier");
+                return $this->redirectToRoute('lddt_main_homepage');
+            }
+            return ['draw'=>$draw, 'form'=>$form->createView()];
+        }
+        /**
+         * @param Draw $draw
+         * @return \Symfony\Component\HttpFoundation\RedirectResponse
+         */
+        public function deleteAction(Draw $draw){
+            $em = $this->get('doctrine')->getManager();
+            $em->remove($draw);
+            $em->flush();
+            $this->addFlash('success', "Le dessin {$draw->getTitle()} a été supprimé !");
+            return $this->redirectToRoute('lddt_main_homepage');
         }
     }

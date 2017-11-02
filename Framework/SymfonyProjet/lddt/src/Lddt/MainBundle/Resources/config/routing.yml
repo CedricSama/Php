@@ -1,6 +1,7 @@
 lddt_main_homepage:
     path:     /
     defaults: { _controller: LddtMainBundle:Default:index }
+
 #    Ici sont les routes local (contrainrement au app/config/routing.yml qui est un routing général)
 lddt_main_create:
     path:     /create
@@ -9,3 +10,15 @@ lddt_main_create:
 lddt_main_show:
     path:     /show/{id}
     defaults: { _controller: LddtMainBundle:Default:show }
+
+lddt_main_edit:
+    path:     /edit/{id}
+    defaults: { _controller: LddtMainBundle:Default:edit }
+
+lddt_draws_category:
+    path:     /category/{name}
+    defaults: { _controller: LddtMainBundle:Default:drawsByCat }
+
+lddt_main_delete:
+    path:     /delete
+    defaults: { _controller: LddtMainBundle:Default:delete }

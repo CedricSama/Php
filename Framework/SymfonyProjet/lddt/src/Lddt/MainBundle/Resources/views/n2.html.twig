@@ -18,7 +18,7 @@
                     <li><a href="{{ path('lddt_main_create') }}">Envoyer son dessin</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="btn btn-small" href="#">Se connecter</a></li>
+                    <li><a class="btn btn-small" href="">Se connecter</a></li>
                     <li><a href="#">Créer un compte</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
@@ -27,7 +27,7 @@
     <div class="container margin-container-top">
     <!-- Fin Template menu principal -->
     {% if form is defined %}
-        {% form_theme form 'bootstap_3_layout.html.twig' %}
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
     {% endif %}
     {% for message in app.flashes('success') %}
         <div class="alert alert-success">
@@ -35,4 +35,5 @@
         </div>
     {% endfor %}
     {% block n3 %}{% endblock %}
+    </div>
 {% endblock body %}
