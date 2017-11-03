@@ -1,0 +1,80 @@
+{% extends "::n1.html.twig" %}
+{% block title %}LDDT Administrateur{% endblock %}
+{% block body %}
+    <h1>Bienvenue Sur la page Administrateur</h1>
+    <div class="container well">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+        <h2>Dessins en attente de modération: <span class="label label-primary">{{ draws|length }}</span></h2>
+        <table class="table-bordered table">
+        <thead>
+        <tr>
+            <th>Nom du dessin</th>
+            <th>img</th>
+            <th>Catégorie</th>
+            <th>Auteur</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+    {% for draw in draws %}
+        <tbody>
+        <tr>
+            <td>{{ draw.title }}</td>
+            <td><img width="50" class="img-circle" src="{{ asset(draw.pic.getWebPath()) }}" alt="{{ draw.title }}"></td>
+            <td>{{ draw.category.name }}</td>
+            <td>{{ draw.author.username }}</td>
+            <td><a class="btn btn-primary btn-xs" href="{{ path('lddt_admin_publish', {id:draw.id}) }}">Publier</a></td>
+        </tr>
+        </tbody>
+    {% endfor %}
+    </table>
+    </div>
+    {% for draw in draws %}
+        {#
+            {{ dump(draws) }}
+        #}
+        <div class="col-lg-4">
+            <div class="thumbnail">
+                <a href="{{ path('lddt_main_show',{id:draw.id}) }}"><img class="img-thumbnail"
+                                                                         src="{{ asset(draw.pic.getWebPath()) }}"/></a>
+                <div class="caption">
+                    <p><strong>{{ draw.title }}</strong></p>
+                    <p>
+                        <a href="{{ path('lddt_draws_category', {name:draw.category.name}) }}">{{ draw.category.name }}</a>
+                    </p>
+                    <div class="col-lg-3 col-lg-offset-9">
+                        <p class="AuthorName">
+                            {% if draw.author %}
+                                <a href="{{ path('lddt_draws_author', {username:draw.author.username}) }}">
+                                    {{ draw.author.username }}
+                                </a>
+                            {% endif %}
+                            {% if draw.author %}
+                                {% if draw.author.avatar %}
+                                    <img width="60" class="img-circle"
+                                         src="{{ asset(draw.author.avatar.getWebPath()) }}"/>
+                                {% endif %}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <p class="ToolsButton">
+                        <a class="btn btn-small btn-info"
+                           href="{{ path('lddt_admin_publish', {id:draw.id}) }}">Publier
+                            <i class="icon-eye-open"></i>
+                        </a>
+                        <a href="{{ path('lddt_main_edit', {id:draw.id}) }}"
+                           class="btn btn-warning">éditer
+                        </a>
+                        <a onclick="return confirm('Sure ?')"
+                           href="{{ path('lddt_main_delete', {id:draw.id}) }}"
+                           class="btn btn-danger">supprimer
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

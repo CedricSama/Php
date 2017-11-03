@@ -1,0 +1,84 @@
+{% extends '@LddtMain/n2.html.twig' %}
+{% block n3 %}
+    <!-- Template Niveau 3 -->
+    <div class="row">
+        <div class="col-lg-7">
+            <h2>{{ draw.title }}</h2>
+            <img class="col-lg-12 well well-lg img-polaroid"
+                 src="{{ asset(draw.pic.getWebPath()) }}"/>
+        </div>
+        <div class="col-lg-5">
+            <div class="well SidebarShow">
+                <div class="col-lg-4">
+                    {% if draw.author %}
+                        {% if draw.author.avatar %}
+                            <img src="{{ asset(draw.author.avatar.getWebPath()) }}"
+                                 class="col-lg-12 img-circle shadow"/><br/>
+                        {% endif %}
+                    {% endif %}
+                    {% if draw.author %}
+                        <p class="AuthorName">
+                            <a href="{{ path('lddt_draws_author', {username:draw.author.username}) }}">{{ draw.author.username }}</a>
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="col-lg-8">
+                    <p> Voir plus de dessins dans:
+                        <a href="{{ path('lddt_draws_category', {name:draw.category.name}) }}">
+                            {{ draw.category.name }}
+                        </a>
+                    </p>
+                    <p style="margin-top:15px"><strong>Couleurs:</strong></p>
+                    {% for color in draw.colors %}
+                        <a href="#">
+                            <div class="colorBlock" style="background:{{ color.code }}">
+                            </div>
+                        </a>
+                    {% endfor %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <p class="ToolsButton">
+                            <a href="{{ path('lddt_main_edit', {id:draw.id}) }}" class="btn btn-warning">éditer</a>
+                            <a onclick="return confirm('Sure ?')" href="{{ path('lddt_main_delete', {id:draw.id}) }}"
+                               class="btn btn-danger">supprimer</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="well">
+                <div class="col-lg-12">
+                    {% if is_granted('ROLE_USER') %}
+                        {% include '@LddtMain/Default/Partials/form.html.twig' %}
+                    {% else %}
+                        <p>Merci de vous<a href="{{ path('fos_user_security_login') }}"> identifier</a> pour laisser un
+                            commentaire</p>
+                    {% endif %}
+                </div>
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+                <h4>Commentaires</h4>
+                {# {{ dump((draw.comment.count)) }} #}
+                {% if draw.comment.count < 1 %}
+                    <p>Le dessin <strong><em>{{ draw.title }}</em></strong> n' a pas encore été commenté.</p>
+                {% else %}
+                    {% for comment in draw.comment | reverse %}
+                        {#<p>{{ dump(comment) }}</p>#}
+                        <p class="well well-sm">
+                            <strong>{{ comment.critic.username }}</strong> {{ comment.createdAt.date | date("m/d/Y H:i") }}
+                            <br>
+                            {{ comment.content }}
+                        </p>
+                        <hr/>
+                    {% endfor %}
+                {% endif %}
+                <!-- si pas de commentaire -->
+                <!--  -->
+
+            </div>
+        </div>
+    </div><!-- Fin Template Niveau 3 -->
+{% endblock %}
