@@ -1,0 +1,32 @@
+lddt_main_homepage:
+    path:     /
+    defaults: { _controller: LddtMainBundle:Default:index }
+
+lddt_main_create:
+    path:     /create
+    defaults: { _controller: LddtMainBundle:Default:create }
+
+lddt_main_show:
+    path:     /show/{id}
+    defaults: { _controller: LddtMainBundle:Default:show }
+
+lddt_main_edit:
+    path:     /edit/{id}
+    defaults: { _controller: LddtMainBundle:Default:edit }
+
+lddt_main_delete:
+    path:     /delete/{id}
+    defaults: { _controller: LddtMainBundle:Default:delete }
+
+
+lddt_draws_by_cat:
+    path:     /category/{name}
+    defaults: { _controller: LddtMainBundle:Default:drawsByCat }
+
+lddt_draws_by_color:
+    path:     /color/{id}
+    defaults: { _controller: LddtMainBundle:Default:findAllDrawsByColor }
+
+lddt_draws_by_user:
+    path:    /user/{username}
+    defaults: { _controller: LddtMainBundle:Default:drawByAuthor}

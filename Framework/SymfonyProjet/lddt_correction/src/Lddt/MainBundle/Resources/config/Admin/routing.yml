@@ -1,0 +1,7 @@
+index:
+    path:     /
+    defaults: { _controller: LddtMainBundle:Admin:index }
+
+lddt_admin_publish:
+    path:     /publish/{id}
+    defaults: { _controller: LddtMainBundle:Admin:publish}

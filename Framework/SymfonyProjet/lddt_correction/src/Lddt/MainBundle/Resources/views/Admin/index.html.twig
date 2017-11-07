@@ -1,0 +1,43 @@
+{% extends "::n1.html.twig" %}
+
+{% block title %}LddtMainBundle:Admin:index{% endblock %}
+
+{% block body %}
+<div class="container well">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+    {#{{ dump(draws) }}#}
+    <h1>Dessins en attente de modération:
+        <span class="label label-primary">{{ draws |length }}</span> </h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nom du dessin</th>
+            <th>img</th>
+            <th>Catégorie</th>
+            <th>Auteur</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for draw in draws %}
+        <tr>
+            <td>{{ draw.title }}</td>
+            <td>
+                <img width="50" class="img-circle" src="{{ asset(draw.pic.getWebPath()) }}"
+                     alt="{{ draw.title }}">
+            </td>
+            <td>{{ draw.category.name }}</td>
+            <td>{{ draw.author.username }}</td>
+            <td><a class="btn btn-primary btn-xs"
+                   href="{{ path('lddt_admin_publish',{id:draw.id}) }}">Publier</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends '@LddtMain/n2.html.twig' %}
+{% block n3 %}
+    {% if category is defined %}
+    <h1>{{ category.name }}</h1>
+{% endif %}
+    {% if author is defined %}
+        <h1>{{ author.username }}</h1>
+    {% endif %}
+    {% for draw in draws %}
+        <div class="col-lg-4">
+            <div class="thumbnail">
+                <img class="img-thumbnail" src="{{ asset(draw.pic.getWebPath()) }}" />
+                <div class="caption">
+                    <p><strong>{{ draw.title }}</strong></p>
+    <p><a href="{{ path('lddt_draws_by_cat',{name:draw.category.name}) }}">{{ draw.category.name }}</a></p>
+                    <div class="col-lg-3 col-lg-offset-9">
+                        <p class="AuthorName">
+                            <a href="{{ path("lddt_draws_by_user",{username:draw.author.username}) }}">{{ draw.author.username }} </a>
+                            {% if draw.author.avatar %}
+  <img width="60" class="img-circle" src="{{ asset(draw.author.avatar.getWebPath()) }}" />
+                            {% endif %}
+                        </p>
+                    </div>
+  <a class="btn btn-small btn-info" href="{{ path('lddt_main_show',{id:draw.id}) }}">Voir dessin <i class="icon-eye-open"></i></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

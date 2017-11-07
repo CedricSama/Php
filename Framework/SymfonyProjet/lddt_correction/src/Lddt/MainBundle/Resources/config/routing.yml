@@ -1,0 +1,7 @@
+lddt_front:
+    resource: "@LddtMainBundle/Resources/config/Front/routing.yml"
+    prefix:   /
+
+lddt_admin:
+    resource: "@LddtMainBundle/Resources/config/Admin/routing.yml"
+    prefix:   /admin

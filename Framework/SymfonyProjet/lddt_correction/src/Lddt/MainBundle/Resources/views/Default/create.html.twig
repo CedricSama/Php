@@ -1,0 +1,23 @@
+{% extends '@LddtMain/n2.html.twig' %}
+{% block n3 %}
+    <!-- Template Niveau 3 -->
+    <div class="row well">
+            <div class="col-lg-3 col-lg-offset-1">
+                <h1>Vous dessinez au téléphone ? </h1>
+                <img width="290" src="{{ asset('bundles/lddtmain/img/red-phone.jpg') }}" />
+            </div>
+            <div class="col-lg-5 col-lg-offset-1 well">
+                <h3>Envoyez votre dessin !</h3>
+                {% if is_granted('ROLE_USER') %}
+                <!-- Template Formulaire -->
+                <p>{% include '@LddtMain/Default/Partials/form.html.twig' %}</p>
+                {% else %}
+                    <!-- Si le visiteur n'est pas identifié -->
+  <p>Merci de vous<a href="{{ path('fos_user_security_login') }}"> identifier</a>
+      pour poster vos dessins !</p>
+                {% endif %}
+                <!-- Fin Template Formulaire -->
+
+            </div>
+    </div><!-- Fin Template Niveau 3 -->
+{% endblock %}
