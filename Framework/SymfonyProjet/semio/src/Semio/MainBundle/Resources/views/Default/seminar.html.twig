@@ -1,0 +1,16 @@
+{% extends '@SemioMain/static.html.twig' %}
+    {% block dynamic %}
+        <h2 class="text-info">{{ seminar.titre }}</h2>
+        <hr/>
+        <h5>Salle : <a href="{{ path('semio_main_place', {id:seminar.place.id}) }}">{{ seminar.place.nom }}</a></h5>
+        <p>{{ seminar.resume }}</p>
+        <br>
+        <p class="text-info">{{ seminar.date | date("m/d/Y") }} {{ seminar.heure | date("H:i") }}</p>
+        <p>Conférencier: <a href="#">{{ seminar.speaker }}</a></p>
+        <p>Organisateur: <a href="#">{{ seminar.admin }}</a></p>
+        <p>Thèmes: {% for topic in seminar.topic %}
+                <a href="{{ path('semio_main_topic', {id:topic.id}) }}">{{ topic.nom }}</a>
+                {% if seminar.topic.count > 1 %}{% if loop.last == false %},{% else %}.{%  endif %}
+                {% endif %}
+            {% endfor %}</p>
+    {% endblock dynamic %}

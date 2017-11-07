@@ -1,0 +1,21 @@
+    <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+            <li class="nav-header">Conférenciers</li>
+            {% for speaker in speakers %}
+                <li class="active">
+                    <a href="{{ path('semio_user_speaker', {id:speaker.id}) }}">{{ speaker.prenom }} {{ speaker.nom }}</a>
+                </li>
+            {% endfor %}
+            {#<li class="active"><a href="#">Alain Perrouac</a></li>
+            <li><a href="#">Ferdinand Bézier</a></li>
+            <li><a href="#">Marie Allgouët</a></li>
+            <li><a href="#">Scott Kinker</a></li>#}
+            <li> <a href="#">Voir tous les conférenciers</a>
+            <li class="nav-header">Thèmes</li>
+            {% for topic in topics %}
+                <li><a href="{{ path('semio_main_topic', {id:topic.id}) }}">{{ topic.nom }}</a></li>
+            {% endfor %}
+            <li class="nav-header">Archives</li>
+            <li><a href="#">Nos derniers séminaires</a></li>
+        </ul>
+    </div><!--/.well -->

@@ -1,0 +1,33 @@
+{% extends '@SemioMain/static.html.twig' %}
+    {% block dynamic %}
+        <div class="row well">
+            <div class="col-lg-3 col-lg-offset-1">
+                <h1>Inscrir un nouveau lieu de conference</h1>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1 well">
+                {#
+                                {% if is_granted('ROLE_USER') %}
+                #}
+                <!-- Template Formulaire -->
+                <p>{% include '@SemioMain/Partial/form.html.twig' %}</p>
+
+
+                {#
+                                {% else %}
+                #}
+
+
+                <!-- Si le visiteur n'est pas identifié -->
+                <p>
+                    Merci de vous
+                    <a href="{{ path('fos_user_security_login') }}"> identifier</a>
+                    pour ajouter un lieu de reception !
+                </p>
+                {#
+                                {% endif %}
+                #}
+                <!-- Fin Template Formulaire -->
+
+            </div>
+        </div>
+    {% endblock dynamic %}

@@ -1,0 +1,37 @@
+semio_main_homepage:
+    path:     /
+    defaults: { _controller: SemioMainBundle:Default:index }
+
+semio_main_seminar:
+    path:     /seminar/{id}
+    defaults: { _controller: SemioMainBundle:Default:seminar }
+
+semio_main_place:
+    path:     /place/{id}
+    defaults: { _controller: SemioMainBundle:Default:place }
+
+semio_main_topic:
+    path:     /topic/{id}
+    defaults: { _controller: SemioMainBundle:Default:topic }
+
+
+
+
+semio_main_newSeminar:
+    path:     /create/seminar/
+    defaults: { _controller: SemioMainBundle:Default:newSeminar }
+
+semio_main_newTopic:
+    path:     /create/topic/
+    defaults: { _controller: SemioMainBundle:Default:newTopic }
+
+semio_main_newPlace:
+    path:     /create/place/
+    defaults: { _controller: SemioMainBundle:Default:newPlace }
+
+
+
+
+semio_user_speaker:
+    path:     /speaker/{id}
+    defaults: { _controller: SemioUserBundle:Default:speaker }

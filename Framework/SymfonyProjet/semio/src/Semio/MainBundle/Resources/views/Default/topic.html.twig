@@ -1,0 +1,16 @@
+{% extends '@SemioMain/static.html.twig' %}
+    {% block dynamic %}
+<h2 class="text-info">{{ topic.nom }}</h2>
+<hr/>
+<p>{{ topic.description }}</p>
+<br>
+{% for seminar in seminars %}
+{% if seminar.topic.nom %}
+    {% if seminar.topic.nom == topic.nom %}
+        <h5>Conference lié a ce thème :
+            <a href="{{ path('semio_main_seminar', {id:seminar.id}) }}">{{ seminar.nom }}</a>
+        </h5>
+    {% endif %}
+{% endif %}
+{% endfor %}
+    {% endblock dynamic %}

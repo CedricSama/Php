@@ -1,0 +1,19 @@
+{% extends '@SemioMain/static.html.twig' %}
+    {% block dynamic %}
+        {% if place is defined %}
+            <h1 class="text-info">Emplacement {{ place.nom }}</h1>
+            <h2 class="small">Adresse : {{ place.adresse }}</h2>
+        {% else %}
+            <h1 class="text-info">Les prochaines conférences</h1>
+        {% endif %}
+        <hr/>
+        {% for seminar in seminars %}
+            <h2>{{ seminar.titre }}</h2>
+            {% if place is defined %}
+            {% else %}
+                <h5><a href="{{ path('semio_main_place', {id:seminar.place.id}) }}">{{ seminar.place.nom }}</a></h5>
+            {% endif %}
+            <p>{{ seminar.resume }}</p>
+            <p><a class="btn btn-mini" href="{{ path('semio_main_seminar', {id:seminar.id}) }}">En savoir plus</a></p>
+        {% endfor %}
+    {% endblock dynamic %}
