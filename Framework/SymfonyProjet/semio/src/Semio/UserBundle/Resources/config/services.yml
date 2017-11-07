@@ -1,0 +1,4 @@
+services:
+#    semio_user.example:
+#        class: Semio\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
