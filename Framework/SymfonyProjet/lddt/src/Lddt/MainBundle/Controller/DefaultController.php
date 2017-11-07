@@ -13,7 +13,6 @@
             $draws = $this->get('doctrine')->getRepository('LddtMainBundle:Draw')->findAllDraws();
             return $this->render('LddtMainBundle:Default:index.html.twig',['draws'=>$draws]);
         }
-        
         /*public function createAction(){
             //Instancier des dessins sans formulaire
             //hydrater de valeurs
@@ -40,7 +39,6 @@
             // $em->flush();
             // return $this->redirectToRoute('lddt_main_homepage');
         }*/
-        
         /**
          * attention au Template()
          * parametre qui permet de savoir la route
@@ -60,14 +58,12 @@
             }
             return $datas;
         }
-        
         /* // La premiere méthode est la methode classic
         // la deuxieme est la meme chose de facon optimisé grace a l'usilisation de Sensio\Bundle\FrameworkExtraBundle\Configuration\Template
                public function showAction($id){
             $draw = $this->get('doctrine')->getRepository('LddtMainBundle:Draw')->find($id);
             return $this->render('LddtMainBundle:Default:show.html.twig', ['draw'=>$draw]);
         }*/
-        
         /**
          * @param Draw $draw
          * @Template()
