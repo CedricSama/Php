@@ -1,0 +1,21 @@
+{% extends "::n1.html.twig" %}
+{% block body %}
+    <div class="container">
+        {% if form is defined %}
+            {% form_theme form 'bootstrap_3_layout.html.twig' %}
+        {% endif %}
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <div>
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+    </div>
+{% endblock body %}
