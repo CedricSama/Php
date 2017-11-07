@@ -1,0 +1,12 @@
+semio_user:
+    resource: "@SemioUserBundle/Resources/config/routing.yml"
+    prefix:   /User
+
+semio_main:
+    resource: "@SemioMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+
